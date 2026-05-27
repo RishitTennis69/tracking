@@ -85,19 +85,29 @@
           <div class="landing-steps rich">
             <article>
               <span>01</span>
-              <div class="step-visual crawl-visual" aria-hidden="true"><i></i><i></i><i></i></div>
+              <div class="step-visual crawl-visual" aria-hidden="true">
+                <b>/services</b><b>/reviews</b><b>/locations</b>
+                <i></i>
+              </div>
               <h3>Read The Site</h3>
               <p>Gleo crawls pages, services, proof points, and location signals directly from the website.</p>
             </article>
             <article>
               <span>02</span>
-              <div class="step-visual prompt-visual" aria-hidden="true"><i></i><i></i><i></i></div>
+              <div class="step-visual prompt-visual" aria-hidden="true">
+                <b>AI</b>
+                <p>Best family dentist near Palo Alto?</p>
+                <i></i>
+              </div>
               <h3>Generate Real Prompts</h3>
               <p>AI creates customer-style questions for the business, nearby cities, and broader local region.</p>
             </article>
             <article>
               <span>03</span>
-              <div class="step-visual fix-visual" aria-hidden="true"><i></i><i></i><i></i></div>
+              <div class="step-visual fix-visual" aria-hidden="true">
+                <b>Problem</b><p>Service area proof is unclear.</p>
+                <b>Fix</b><p>Add crawlable city/service copy.</p>
+              </div>
               <h3>Turn Data Into Fixes</h3>
               <p>The dashboard turns rankings, sentiment, and source gaps into developer-ready action items.</p>
             </article>
@@ -114,10 +124,10 @@
               <span>Prompt Engine</span>
               <strong>Business-specific prompts</strong>
               <p>Every scan is tailored to the site, not a generic template.</p>
-              <div class="feature-mini-panel" aria-hidden="true">
-                <b>best family dentist near Palo Alto</b>
-                <b>same-day dental clinic in South Bay</b>
-                <b>trusted cosmetic dentist Bay Area</b>
+              <div class="feature-mini-panel chat-panel" aria-hidden="true">
+                <div><span>ChatGPT</span><b>best family dentist near Palo Alto</b></div>
+                <div><span>Gemini</span><b>same-day dental clinic in South Bay</b></div>
+                <div><span>Claude</span><b>trusted cosmetic dentist Bay Area</b></div>
               </div>
             </article>
             <div class="feature-side-stack">
@@ -125,19 +135,30 @@
               <span>Local Graph</span>
               <strong>Nearby-area coverage</strong>
               <p>Prompts include nearby cities and broader regional searches where customers compare options.</p>
-              <div class="feature-map" aria-hidden="true"><i></i><i></i><i></i></div>
+              <div class="feature-chat" aria-hidden="true">
+                <b>Ask AI</b>
+                <p>Who should I choose near Menlo Park?</p>
+                <i>Gleo checks nearby city variants too.</i>
+              </div>
             </article>
             <article>
               <span>Handoff</span>
               <strong>Developer-ready fixes</strong>
               <p>Send the problem, evidence, and exact fix in one concise email.</p>
-              <div class="feature-checklist" aria-hidden="true"><i></i><i></i><i></i></div>
+              <div class="handoff-preview" aria-hidden="true">
+                <b>To Developer</b>
+                <p>Add an emergency dentistry section with hours, city coverage, and review proof.</p>
+                <i>Send Fix</i>
+              </div>
             </article>
             </div>
           </div>
         </section>
 
         <section class="landing-section landing-faq" id="faq">
+          <div class="cta-visual" aria-hidden="true">
+            <span>1</span><i></i><span>2</span><i></i><span>3</span>
+          </div>
           <div>
             <p class="eyebrow">Monitoring</p>
             <h2>One business, one baseline.</h2>
@@ -424,6 +445,6 @@ OPENROUTER_API_KEY=...</code></pre>
       <div id="dialogContent"></div>
     </dialog>
 
-    <script src="app.js?v=20260526-15"></script>
+    <script src="app.js?v=20260526-16"></script>
   </body>
 </html>
