@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gleo GEO Insights</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <section class="landing-page" id="landingPage">
+      <nav class="landing-nav" aria-label="Landing navigation">
+        <a class="landing-brand" href="#">
+          <strong>Gleo</strong>
+          <span>GEO Insights</span>
+        </a>
+        <div class="landing-links">
+          <a href="#howItWorks">How It Works</a>
+          <a href="#features">Features</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <button class="landing-login" type="button" data-login-open>Log In</button>
+      </nav>
+
+      <main class="landing-main">
+        <section class="landing-hero">
+          <div class="landing-copy">
+            <p class="eyebrow">GEO monitoring for local businesses</p>
+            <h1>See <span class="rotating-phrase" aria-label="if, how, and why"><span>If</span><span>How</span><span>Why</span></span> AI Recommends Your Business</h1>
+            <p class="landing-lede">Gleo scans your site, learns what your business actually is, then tracks how ChatGPT, Gemini, and Claude mention you across realistic customer searches.</p>
+            <form class="landing-start-card" id="landingStartForm">
+              <label>
+                <span>Business Name</span>
+                <input id="landingBusinessInput" type="text" placeholder="Willow Creek Dental" autocomplete="organization" />
+              </label>
+              <label>
+                <span>Website Link</span>
+                <input id="landingWebsiteInput" type="url" placeholder="https://yourbusiness.com" required autocomplete="url" />
+              </label>
+              <button class="primary-button border-beam-button" type="submit">Get Started</button>
+            </form>
+          </div>
+
+          <div class="landing-product-preview" aria-label="Product preview">
+            <div class="preview-toolbar">
+              <span></span><span></span><span></span>
+              <strong>Gleo Dashboard</strong>
+            </div>
+            <div class="preview-dashboard">
+              <div class="preview-score">
+                <small>AI Visibility Score</small>
+                <strong>72<span>/100</span></strong>
+                <p>Up 18 points across recent comparable scans.</p>
+              </div>
+              <div class="preview-mini-metrics">
+                <article><span>Mention Rate</span><strong>64%</strong></article>
+                <article><span>Average Rank</span><strong>#1.4</strong></article>
+                <article><span>Positive</span><strong>67%</strong></article>
+              </div>
+              <div class="preview-chart" aria-hidden="true">
+                <svg viewBox="0 0 440 180">
+                  <defs>
+                    <linearGradient id="previewArea" x1="0" x2="0" y1="0" y2="1">
+                      <stop offset="0%" stop-color="#5146f5" stop-opacity="0.24" />
+                      <stop offset="100%" stop-color="#5146f5" stop-opacity="0" />
+                    </linearGradient>
+                  </defs>
+                  <path class="preview-grid" d="M24 38H420M24 82H420M24 126H420" />
+                  <path class="preview-area" d="M26 128 C84 108 92 82 146 88 C202 96 214 60 272 54 C326 48 342 90 420 42 L420 158 L26 158 Z" />
+                  <path class="preview-line" d="M26 128 C84 108 92 82 146 88 C202 96 214 60 272 54 C326 48 342 90 420 42" />
+                  <circle cx="26" cy="128" r="5" />
+                  <circle cx="146" cy="88" r="5" />
+                  <circle cx="272" cy="54" r="5" />
+                  <circle cx="420" cy="42" r="5" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="landing-section" id="howItWorks">
+          <div class="landing-section-heading">
+            <p class="eyebrow">How It Works</p>
+            <h2>One link turns into a full AI visibility map.</h2>
+          </div>
+          <div class="landing-steps rich">
+            <article>
+              <span>01</span>
+              <div class="step-visual crawl-visual" aria-hidden="true"><i></i><i></i><i></i></div>
+              <h3>Read The Site</h3>
+              <p>Gleo crawls pages, services, proof points, and location signals directly from the website.</p>
+            </article>
+            <article>
+              <span>02</span>
+              <div class="step-visual prompt-visual" aria-hidden="true"><i></i><i></i><i></i></div>
+              <h3>Generate Real Prompts</h3>
+              <p>AI creates customer-style questions for the business, nearby cities, and broader local region.</p>
+            </article>
+            <article>
+              <span>03</span>
+              <div class="step-visual fix-visual" aria-hidden="true"><i></i><i></i><i></i></div>
+              <h3>Turn Data Into Fixes</h3>
+              <p>The dashboard turns rankings, sentiment, and source gaps into developer-ready action items.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="landing-section landing-feature-band" id="features">
+          <div>
+            <p class="eyebrow">Built for action</p>
+            <h2>Metrics only matter when they point somewhere.</h2>
+          </div>
+          <div class="landing-feature-grid">
+            <article class="feature-wide">
+              <span>Prompt Engine</span>
+              <strong>Business-specific prompts</strong>
+              <p>Every scan is tailored to the site, not a generic template.</p>
+              <div class="feature-mini-panel" aria-hidden="true">
+                <b>best family dentist near Palo Alto</b>
+                <b>same-day dental clinic in South Bay</b>
+                <b>trusted cosmetic dentist Bay Area</b>
+              </div>
+            </article>
+            <article>
+              <span>Local Graph</span>
+              <strong>Nearby-area coverage</strong>
+              <p>Prompts include nearby cities and broader regional searches where customers compare options.</p>
+              <div class="feature-map" aria-hidden="true"><i></i><i></i><i></i></div>
+            </article>
+            <article>
+              <span>Handoff</span>
+              <strong>Developer-ready fixes</strong>
+              <p>Send the problem, evidence, and exact fix in one concise email.</p>
+              <div class="feature-checklist" aria-hidden="true"><i></i><i></i><i></i></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="landing-section landing-faq" id="faq">
+          <div>
+            <p class="eyebrow">Monitoring</p>
+            <h2>One business, one baseline.</h2>
+          </div>
+          <p>Repeat scans track the same business over time. A different business starts its own baseline, so the trend chart stays honest.</p>
+          <button class="primary-button border-beam-button" type="button" data-login-open>Start Tracking</button>
+        </section>
+      </main>
+    </section>
+
+    <section class="login-page hidden" id="loginPage">
+      <div class="login-card">
+        <a class="landing-brand" href="#">
+          <strong>Gleo</strong>
+          <span>GEO Insights</span>
+        </a>
+        <h1>Welcome Back</h1>
+        <p>Continue with Google to start your scan and keep each business workspace separate.</p>
+        <button class="google-login-button" type="button" id="googleLoginButton">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 12.2c0-.7-.1-1.3-.2-1.9H12v3.6h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.2Z"/><path d="M12 22c2.7 0 5-0.9 6.6-2.5l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22Z"/><path d="M6.4 13.9A6 6 0 0 1 6 12c0-.7.1-1.3.4-1.9V7.5H3.1A10 10 0 0 0 2 12c0 1.6.4 3.1 1.1 4.5l3.3-2.6Z"/><path d="M12 6c1.5 0 2.8.5 3.8 1.5l2.9-2.9A9.8 9.8 0 0 0 12 2a10 10 0 0 0-8.9 5.5l3.3 2.6C7.2 7.8 9.4 6 12 6Z"/></svg>
+          Continue with Google
+        </button>
+        <button class="text-button" type="button" id="backToLandingButton">Back to landing page</button>
+      </div>
+    </section>
+
+    <div class="app-shell hidden" id="appShell">
+      <aside class="sidebar" aria-label="Main navigation">
+        <a class="brand" href="#" aria-label="Gleo GEO Insights">
+          <strong>Gleo</strong>
+          <span>GEO Insights</span>
+        </a>
+
+        <nav class="nav-list">
+          <button class="nav-item active" type="button" data-panel="overview">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h4A1.5 1.5 0 0 1 11 5.5v4A1.5 1.5 0 0 1 9.5 11h-4A1.5 1.5 0 0 1 4 9.5v-4ZM13 5.5A1.5 1.5 0 0 1 14.5 4h4A1.5 1.5 0 0 1 20 5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4A1.5 1.5 0 0 1 13 9.5v-4ZM4 14.5A1.5 1.5 0 0 1 5.5 13h4a1.5 1.5 0 0 1 1.5 1.5v4A1.5 1.5 0 0 1 9.5 20h-4A1.5 1.5 0 0 1 4 18.5v-4ZM13 14.5a1.5 1.5 0 0 1 1.5-1.5h4a1.5 1.5 0 0 1 1.5 1.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a1.5 1.5 0 0 1-1.5-1.5v-4Z" /></svg>
+            Overview
+          </button>
+          <button class="nav-item" type="button" data-panel="prompts">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h7M4 12h11M4 17h7M17 7h3M14 7a2 2 0 1 0-4 0 2 2 0 0 0 4 0ZM20 17h-3M14 17a2 2 0 1 1 4 0 2 2 0 0 1-4 0Z" /></svg>
+            Detailed Metrics
+          </button>
+          <button class="nav-item" type="button" data-panel="insights">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3ZM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15ZM5 15l.8 2.2L8 18l-2.2.8L5 21l-.8-2.2L2 18l2.2-.8L5 15Z" /></svg>
+            Actionable Insights
+          </button>
+          <button class="nav-item" type="button" data-panel="sentiment">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM8.5 9h.01M15.5 9h.01M8 13.5c1 1.4 2.3 2.1 4 2.1s3-.7 4-2.1" /></svg>
+            Sentiment Analysis
+          </button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <button class="nav-item secondary" type="button" data-panel="settings">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.2 2h-.4a2 2 0 0 0-2 1.7l-.1.8a2 2 0 0 1-3 1.2l-.7-.5a2 2 0 0 0-2.7.7l-.2.4a2 2 0 0 0 .7 2.7l.7.5a2 2 0 0 1 0 3.2l-.7.5a2 2 0 0 0-.7 2.7l.2.4a2 2 0 0 0 2.7.7l.7-.5a2 2 0 0 1 3 1.2l.1.8a2 2 0 0 0 2 1.7h.4a2 2 0 0 0 2-1.7l.1-.8a2 2 0 0 1 3-1.2l.7.5a2 2 0 0 0 2.7-.7l.2-.4a2 2 0 0 0-.7-2.7l-.7-.5a2 2 0 0 1 0-3.2l.7-.5a2 2 0 0 0 .7-2.7l-.2-.4a2 2 0 0 0-2.7-.7l-.7.5a2 2 0 0 1-3-1.2l-.1-.8a2 2 0 0 0-2-1.7Z"/><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>
+            Settings
+          </button>
+          <div class="sidebar-profile" id="sideScore">
+            <span class="avatar">K</span>
+            <div>
+              <strong>Krish</strong>
+              <small>Workspace</small>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <section class="setup-card" id="setupCard" hidden>
+          <div>
+            <p class="eyebrow">Setup</p>
+            <h2>Connect provider keys to run real visibility tests.</h2>
+            <p>Prompt categories are generated from the website, services, location signals, and common buying intents.</p>
+          </div>
+        </section>
+
+        <section class="score-hero" id="scoreHero" hidden>
+          <strong id="mainScore">-</strong>
+          <p id="scoreSubtext">No completed AI answers yet.</p>
+          <div id="platformPills"></div>
+        </section>
+
+        <section class="panels active" id="overview" aria-label="Overview">
+          <div class="overview-top">
+            <div>
+              <h2>Overview</h2>
+              <p>Your AI visibility at a glance.</p>
+            </div>
+            <button class="ghost-button new-scan-button" type="button" id="newScanButton" hidden>
+              New Scan
+            </button>
+          </div>
+
+          <section class="property-bar workflow-card" id="propertyBar" aria-label="Scan setup">
+          <div class="workflow-heading">
+            <div>
+              <p class="eyebrow">Tracking setup</p>
+              <h2>Start with your website, then we build the AI visibility scan.</h2>
+              <p>We infer location and service areas from the site instead of asking users to type them in.</p>
+            </div>
+          </div>
+          <form id="scanForm" class="scan-form">
+            <label class="workflow-step website-field">
+              <span class="step-number">1</span>
+              <span class="field">
+                <span>Website</span>
+                <input id="websiteInput" name="website" type="url" placeholder="https://yourbusiness.com" required />
+              </span>
+            </label>
+
+            <label class="workflow-step">
+              <span class="step-number">2</span>
+              <span class="field">
+                <span>Business</span>
+                <input id="businessInput" name="businessName" type="text" placeholder="Business name" />
+              </span>
+            </label>
+
+            <button class="primary-button scan-submit-button border-beam-button" type="submit" id="runButton">Start Scan</button>
+
+            <input type="hidden" name="platforms" value="openai" />
+            <input type="hidden" name="platforms" value="gemini" />
+            <input type="hidden" name="platforms" value="openrouter" />
+          </form>
+          <div class="status-strip" id="statusStrip" role="status" aria-live="polite" hidden>
+            <span id="statusText">Ready. Add provider keys in `.env` before running AI platform scans.</span>
+          </div>
+          </section>
+
+          <div class="kpi-grid">
+            <article class="kpi-card score-card">
+              <div class="kpi-heading">
+                <span>AI Visibility Score</span>
+              </div>
+              <div class="score-display"><strong id="miniScore">-</strong><span>/100</span></div>
+              <div class="kpi-change" id="scoreDelta"></div>
+            </article>
+
+            <article class="kpi-card metric-card mention-card">
+              <div class="kpi-title-row">
+                <span class="kpi-label">Mention Rate</span>
+                <span class="kpi-icon kpi-icon-purple" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5.5A3.5 3.5 0 0 1 7.5 2h9A3.5 3.5 0 0 1 20 5.5v6A3.5 3.5 0 0 1 16.5 15h-4.3l-4.7 4.1V15A3.5 3.5 0 0 1 4 11.5v-6Zm3.5-1.3a1.3 1.3 0 0 0-1.3 1.3v6a1.3 1.3 0 0 0 1.3 1.3h2.2v1.5l1.7-1.5h5.1a1.3 1.3 0 0 0 1.3-1.3v-6a1.3 1.3 0 0 0-1.3-1.3h-9Zm1.1 3h6.8v1.7H8.6V7.2Zm0 3h4.4v1.7H8.6v-1.7Z" /></svg></span>
+              </div>
+              <strong id="mentionRate">-</strong>
+              <div class="kpi-change" id="mentionDelta"></div>
+            </article>
+
+            <article class="kpi-card metric-card rank-card">
+              <div class="kpi-title-row">
+                <span class="kpi-label">Average Rank</span>
+                <span class="kpi-icon kpi-icon-blue" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M17 3h4v4a5 5 0 0 1-5 5h-.3A6 6 0 0 1 13 14.7V18h3v2H8v-2h3v-3.3A6 6 0 0 1 8.3 12H8a5 5 0 0 1-5-5V3h4V2h10v1ZM7 5H5v2a3 3 0 0 0 2.7 3A7.3 7.3 0 0 1 7 7V5Zm10 0v2c0 1.1-.2 2.1-.7 3A3 3 0 0 0 19 7V5h-2ZM9 4v3c0 3 1.3 5.5 3 5.5S15 10 15 7V4H9Z" /></svg></span>
+              </div>
+              <strong id="avgRank">-</strong>
+              <div class="kpi-change" id="rankDelta"></div>
+            </article>
+
+            <article class="kpi-card metric-card sentiment-card">
+              <div class="kpi-title-row">
+                <span class="kpi-label">Sentiment</span>
+                <span class="kpi-icon kpi-icon-green" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20ZM8.2 9.2a1.3 1.3 0 1 1 2.6 0 1.3 1.3 0 0 1-2.6 0Zm5 0a1.3 1.3 0 1 1 2.6 0 1.3 1.3 0 0 1-2.6 0ZM7.5 13h2.1a2.7 2.7 0 0 0 4.8 0h2.1a4.7 4.7 0 0 1-9 0Z" /></svg></span>
+              </div>
+              <strong id="overviewSentiment">-</strong>
+              <div class="kpi-change" id="sentimentDelta"></div>
+            </article>
+          </div>
+
+          <div class="dashboard-grid">
+            <article class="dashboard-card trend-card">
+              <div class="card-title-row">
+                <h2>Visibility Trend <span>(Mention Over Time)</span></h2>
+                <label class="date-select-wrap" aria-label="Trend date range">
+                  <span class="date-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M7 2v3M17 2v3M4 9h16M6 5h12a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" /></svg>
+                  </span>
+                  <select class="date-select" id="trendRangeSelect">
+                    <option value="7">Last 7 Days</option>
+                    <option value="30">Last Month</option>
+                    <option value="183">Last 6 Months</option>
+                    <option value="365">Last Year</option>
+                  </select>
+                </label>
+              </div>
+              <svg class="trend-chart" id="trendChart" viewBox="0 0 760 280" role="img" aria-label="Visibility trend"></svg>
+            </article>
+          </div>
+
+        </section>
+
+        <section class="panels" id="prompts" aria-label="Prompt results">
+          <div class="panel-header">
+            <div>
+              <h2>Detailed Metrics</h2>
+              <p>Compare visibility by AI platform and business-specific search topic.</p>
+            </div>
+          </div>
+          <div class="metrics-controls" aria-label="Detailed metric filters">
+            <label class="metrics-select-control llm-control">
+              <span>LLM</span>
+              <span class="llm-select-icon" id="metricsPlatformIcon" aria-hidden="true"></span>
+              <select id="metricsPlatformSelect"></select>
+            </label>
+            <label class="metrics-select-control topic-control">
+              <span>Topic</span>
+              <select id="metricsCategorySelect"></select>
+            </label>
+          </div>
+          <div class="metrics-empty-state" id="metricsEmptyState">
+            <h3>Choose An LLM And Topic.</h3>
+            <p>The page will show who AI ranks first, your average rank, and competitors found in that slice.</p>
+          </div>
+          <div class="metrics-results hidden" id="metricsResults">
+            <div class="topic-result-list" id="promptGrid"></div>
+          </div>
+        </section>
+
+        <section class="panels" id="sources" aria-label="Sources">
+          <div class="panel-header">
+            <div>
+              <h2>Source Tracking</h2>
+              <p>Citations and URLs returned by AI providers when available.</p>
+            </div>
+          </div>
+          <div class="source-detail-grid">
+            <article class="detail-card">
+              <h3>Cited Sources</h3>
+              <div id="sourceDetailList" class="stack-list"></div>
+            </article>
+            <article class="detail-card">
+              <h3>Cited Site Pages</h3>
+              <div id="pageDetailList" class="stack-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="panels" id="insights" aria-label="Insights">
+          <div class="panel-header">
+            <div>
+              <h2>Actionable Insights</h2>
+              <p>Focused improvements to increase AI mentions and answer placement.</p>
+            </div>
+          </div>
+          <div class="insight-grid" id="insightGrid"></div>
+        </section>
+
+        <section class="panels" id="sentiment" aria-label="Sentiment Analysis">
+          <div class="panel-header">
+            <div>
+              <h2>Sentiment Analysis</h2>
+              <p>How AI answers describe the business when it appears.</p>
+            </div>
+          </div>
+          <div class="sentiment-grid" id="sentimentGrid"></div>
+        </section>
+
+        <section class="panels" id="settings" aria-label="Settings">
+          <div class="settings-grid">
+            <article class="detail-card">
+              <h2>Provider Keys</h2>
+              <p>Keys are read from the server-side `.env` file. Restart the local server after editing the file.</p>
+              <pre><code>OPENAI_API_KEY=...
+GEMINI_API_KEY=...
+OPENROUTER_API_KEY=...</code></pre>
+            </article>
+            <article class="detail-card">
+              <h2>Scan Limits</h2>
+              <div id="limitList" class="stack-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="empty-state" id="emptyState">
+          <h2>No scan results yet</h2>
+          <p>Start with the business name and website. Gleo will infer location and service areas from the site, then populate the dashboard with real scan output.</p>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="answerDialog">
+      <form method="dialog">
+        <button aria-label="Close" class="icon-only">
+          <svg viewBox="0 0 24 24"><path d="m6.4 5 12.6 12.6-1.4 1.4L5 6.4 6.4 5Zm11.2 0L19 6.4 6.4 19 5 17.6 17.6 5Z" /></svg>
+        </button>
+      </form>
+      <div id="dialogContent"></div>
+    </dialog>
+
+    <script src="app.js?v=20260526-14"></script>
+  </body>
+</html>

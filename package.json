@@ -1,0 +1,12 @@
+{
+  "name": "geo-track-ai-visibility",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "devDependencies": {
+    "shadcn": "^4.8.0"
+  }
+}
