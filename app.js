@@ -1295,9 +1295,17 @@ function renderSelectedTopicSentiment(row, mentions = [], businessName = "", sen
   }
 
   const contextCards = buildTopicContextEvidence(mentions, sentiment, businessName).slice(0, 4);
+  const headline = sentiment ? `${titleCaseLabel(sentiment)} Perceptions` : "Most Common Perceptions";
 
   return `
-    <article class="selected-topic-card">
+    <article class="selected-topic-card context-evidence-board">
+      <div class="context-evidence-head">
+        <div>
+          <span>AI Mention Context</span>
+          <strong>${escapeHtml(headline)}</strong>
+        </div>
+        <p>${mentions.length} grounded mention${mentions.length === 1 ? "" : "s"}</p>
+      </div>
       <div class="topic-context-leaderboard">
         ${
           contextCards.length
@@ -1308,8 +1316,13 @@ function renderSelectedTopicSentiment(row, mentions = [], businessName = "", sen
                       <span>${index + 1}</span>
                       <div>
                         <strong>${escapeHtml(item.label)}</strong>
+                        <small>${escapeHtml(item.countLabel)}</small>
                         <button class="context-info-button" type="button" data-context-info aria-label="${escapeAttr(firstSentence(item.summary, 180))}">i</button>
-                        <p class="context-info-popover">${escapeHtml(firstSentence(item.summary, 180))}</p>
+                        <p class="context-info-popover">
+                          <b>${escapeHtml(item.platformLabel)}</b>
+                          ${escapeHtml(firstSentence(item.summary, 190))}
+                          <em>${escapeHtml(item.promptLabel)}</em>
+                        </p>
                       </div>
                     </article>
                   `,
@@ -1373,10 +1386,14 @@ function buildTopicContextEvidence(mentions, sentiment = "", businessName = "") 
   return definitions
     .map((definition) => {
       const matches = mentions.filter((result) => definition.pattern.test(result.answer || ""));
+      const first = matches[0];
       return {
         label: definition.label,
         count: matches.length,
-        summary: groundedSummaryForPattern(matches[0]?.answer || matches[0]?.context || "", definition.pattern, businessName || matches[0]?.businessName || ""),
+        countLabel: `${matches.length} mention${matches.length === 1 ? "" : "s"}`,
+        platformLabel: first?.platformLabel || first?.platform || "AI answer",
+        promptLabel: first?.prompt ? `Prompt: ${first.prompt}` : "Prompt evidence unavailable",
+        summary: groundedSummaryForPattern(first?.answer || first?.context || "", definition.pattern, businessName || first?.businessName || ""),
       };
     })
     .filter((item) => item.count > 0)
