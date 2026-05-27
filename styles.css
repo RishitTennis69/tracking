@@ -1139,12 +1139,11 @@ svg {
 .login-option-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 14px;
 }
 
 .login-option-row .text-button {
-  flex: 1;
   min-height: 44px;
   padding: 0 12px;
   border-radius: 10px;
