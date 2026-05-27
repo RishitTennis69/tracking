@@ -392,10 +392,11 @@ function buildPromptSet({ site, businessName, location }) {
   if (Array.isArray(site.aiPromptGroups) && site.aiPromptGroups.length) {
     return site.aiPromptGroups.flatMap((group) => {
       const prompts = Array.isArray(group.prompts) && group.prompts.length ? group.prompts : [group.prompt].filter(Boolean);
-      return prompts.slice(0, 3).map((text, index) => ({
+      const repeatedPrompt = cleanText(prompts[0] || group.prompt || "");
+      return repeatPrompt(repeatedPrompt, 3).map((text, index) => ({
         id: makeId(),
         category: cleanText(group.category || "AI visibility"),
-        text: cleanText(text),
+        text,
         runIndex: index + 1,
         intent: cleanText(group.intent || "Measure AI visibility for a realistic customer query."),
         locationVariant: inferPromptLocation(text, site.searchAreas, location),
@@ -487,7 +488,7 @@ function buildPromptSet({ site, businessName, location }) {
   ];
 
   return topicGroups.flatMap((group) =>
-    group.prompts.map((text, index) => ({
+    repeatPrompt(group.prompts[0], 3).map((text, index) => ({
       id: makeId(),
       category: group.category,
       text,
@@ -499,6 +500,11 @@ function buildPromptSet({ site, businessName, location }) {
       generatedFrom: "site crawl",
     })),
   );
+}
+
+function repeatPrompt(prompt, count = 3) {
+  const text = cleanText(prompt);
+  return Array.from({ length: count }, () => text).filter(Boolean);
 }
 
 function buildPromptStrategy({ site, prompts, businessName, location }) {

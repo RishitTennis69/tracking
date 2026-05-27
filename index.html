@@ -15,7 +15,6 @@
         </a>
         <div class="landing-links">
           <a href="#howItWorks">How It Works</a>
-          <a href="#features">Features</a>
           <a href="#faq">FAQ</a>
         </div>
         <button class="landing-login" type="button" data-login-open>Log In</button>
@@ -25,7 +24,7 @@
         <section class="landing-hero">
           <div class="landing-copy">
             <p class="eyebrow">GEO monitoring for local businesses</p>
-            <h1>See <span class="rotating-phrase" aria-label="if, how, and why"><span>If</span><span>How</span><span>Why</span></span> AI Recommends Your Business</h1>
+            <h1>See <span class="rotating-phrase" aria-label="when, why, and how"><span>When</span><span>Why</span><span>How</span></span> AI Recommends Your Business</h1>
             <p class="landing-lede">Gleo scans your site, learns what your business actually is, then tracks how ChatGPT, Gemini, and Claude mention you across realistic customer searches.</p>
             <form class="landing-start-card" id="landingStartForm">
               <label>
@@ -80,17 +79,21 @@
         <section class="landing-section" id="howItWorks">
           <div class="landing-section-heading">
             <p class="eyebrow">How It Works</p>
-            <h2>One link turns into a full AI visibility map.</h2>
+            <h2>You add the site. Gleo builds the visibility picture.</h2>
           </div>
           <div class="landing-steps rich">
             <article>
               <span>01</span>
-              <div class="step-visual crawl-visual" aria-hidden="true">
-                <b>/services</b><b>/reviews</b><b>/locations</b>
-                <i></i>
+              <div class="step-visual site-visual" aria-hidden="true">
+                <div class="site-window">
+                  <b></b><b></b><b></b>
+                  <strong>yourbusiness.com</strong>
+                  <i></i>
+                </div>
+                <div class="scan-lens"></div>
               </div>
-              <h3>Read The Site</h3>
-              <p>Gleo crawls pages, services, proof points, and location signals directly from the website.</p>
+              <h3>Enter Your Website</h3>
+              <p>Start with the business name and site link. Gleo uses the website to infer what the business does and where it serves.</p>
             </article>
             <article>
               <span>02</span>
@@ -99,89 +102,95 @@
                 <p>Best family dentist near Palo Alto?</p>
                 <i></i>
               </div>
-              <h3>Generate Real Prompts</h3>
-              <p>AI creates customer-style questions for the business, nearby cities, and broader local region.</p>
+              <h3>Generate Customer Prompts</h3>
+              <p>Gleo creates realistic questions for the business, nearby cities, broader regional searches, and service-specific searches.</p>
             </article>
             <article>
               <span>03</span>
+              <div class="step-visual visibility-readout-visual" aria-hidden="true">
+                <div><b>Sentiment</b><strong>67%</strong></div>
+                <div><b>First Choice</b><strong>42%</strong></div>
+                <div><b>Competitors</b><strong>3</strong></div>
+              </div>
+              <h3>See Your Visibility</h3>
+              <p>See when AI mentions you, who it recommends first, what sentiment it uses, and which competitors show up instead.</p>
+            </article>
+            <article>
+              <span>04</span>
               <div class="step-visual fix-visual" aria-hidden="true">
-                <b>Problem</b><p>Service area proof is unclear.</p>
-                <b>Fix</b><p>Add crawlable city/service copy.</p>
+                <b>Problem</b><p>Emergency hours are unclear.</p>
+                <b>Fix</b><p>Add a clear emergency service page.</p>
               </div>
-              <h3>Turn Data Into Fixes</h3>
-              <p>The dashboard turns rankings, sentiment, and source gaps into developer-ready action items.</p>
+              <h3>Send Action Items</h3>
+              <p>Turn the scan into concise developer tasks tied to the exact AI visibility issue Gleo found.</p>
             </article>
-          </div>
-        </section>
-
-        <section class="landing-section landing-feature-band" id="features">
-          <div>
-            <p class="eyebrow">Built for action</p>
-            <h2>Metrics only matter when they point somewhere.</h2>
-          </div>
-          <div class="landing-feature-grid">
-            <article class="feature-wide">
-              <span>Prompt Engine</span>
-              <strong>Business-specific prompts</strong>
-              <p>Every scan is tailored to the site, not a generic template.</p>
-              <div class="feature-mini-panel chat-panel" aria-hidden="true">
-                <div><span>ChatGPT</span><b>best family dentist near Palo Alto</b></div>
-                <div><span>Gemini</span><b>same-day dental clinic in South Bay</b></div>
-                <div><span>Claude</span><b>trusted cosmetic dentist Bay Area</b></div>
-              </div>
-            </article>
-            <div class="feature-side-stack">
-            <article>
-              <span>Local Graph</span>
-              <strong>Nearby-area coverage</strong>
-              <p>Prompts include nearby cities and broader regional searches where customers compare options.</p>
-              <div class="feature-chat" aria-hidden="true">
-                <b>Ask AI</b>
-                <p>Who should I choose near Menlo Park?</p>
-                <i>Gleo checks nearby city variants too.</i>
-              </div>
-            </article>
-            <article>
-              <span>Handoff</span>
-              <strong>Developer-ready fixes</strong>
-              <p>Send the problem, evidence, and exact fix in one concise email.</p>
-              <div class="handoff-preview" aria-hidden="true">
-                <b>To Developer</b>
-                <p>Add an emergency dentistry section with hours, city coverage, and review proof.</p>
-                <i>Send Fix</i>
-              </div>
-            </article>
-            </div>
           </div>
         </section>
 
         <section class="landing-section landing-faq" id="faq">
-          <div class="cta-visual" aria-hidden="true">
-            <span>1</span><i></i><span>2</span><i></i><span>3</span>
+          <div class="landing-section-heading">
+            <p class="eyebrow">FAQ</p>
+            <h2>Quick answers before you scan.</h2>
           </div>
-          <div>
-            <p class="eyebrow">Monitoring</p>
-            <h2>One business, one baseline.</h2>
+          <div class="faq-grid">
+            <details open>
+              <summary>What AI platforms do you track?</summary>
+              <p>Gleo currently checks ChatGPT, Gemini, and Claude, with the scan results separated by platform.</p>
+            </details>
+            <details>
+              <summary>What does the scan measure?</summary>
+              <p>It measures mention visibility, first-choice share, average rank, competitor presence, sentiment, and action items.</p>
+            </details>
+            <details>
+              <summary>How are prompts generated?</summary>
+              <p>Gleo reads the site first, then builds customer-style prompts around the business, service categories, local intent, and nearby comparison searches.</p>
+            </details>
+            <details>
+              <summary>Can I send fixes to my developer?</summary>
+              <p>Yes. Actionable Insights turns scan evidence into concise website fixes that can be sent directly to a developer.</p>
+            </details>
           </div>
-          <p>Repeat scans track the same business over time. A different business starts its own baseline, so the trend chart stays honest.</p>
-          <button class="primary-button border-beam-button" type="button" data-login-open>Start Tracking</button>
+        </section>
+
+        <section class="landing-section landing-cta">
+          <p class="eyebrow">Start today</p>
+          <h2>Start Understanding How AI Sees Your Business.</h2>
+          <p>Run the first scan, see where you show up, and turn visibility gaps into clear fixes.</p>
+          <button class="primary-button border-beam-button" type="button" data-login-open>Start Understanding Today</button>
         </section>
       </main>
     </section>
 
     <section class="login-page hidden" id="loginPage">
-      <div class="login-card">
-        <a class="landing-brand" href="#">
-          <strong>Gleo</strong>
-          <span>GEO Insights</span>
-        </a>
-        <h1>Welcome Back</h1>
-        <p>Continue with Google to start your scan and keep each business workspace separate.</p>
-        <button class="google-login-button" type="button" id="googleLoginButton">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 12.2c0-.7-.1-1.3-.2-1.9H12v3.6h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.2Z"/><path d="M12 22c2.7 0 5-0.9 6.6-2.5l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22Z"/><path d="M6.4 13.9A6 6 0 0 1 6 12c0-.7.1-1.3.4-1.9V7.5H3.1A10 10 0 0 0 2 12c0 1.6.4 3.1 1.1 4.5l3.3-2.6Z"/><path d="M12 6c1.5 0 2.8.5 3.8 1.5l2.9-2.9A9.8 9.8 0 0 0 12 2a10 10 0 0 0-8.9 5.5l3.3 2.6C7.2 7.8 9.4 6 12 6Z"/></svg>
-          Continue with Google
-        </button>
-        <button class="text-button" type="button" id="backToLandingButton">Back to landing page</button>
+      <div class="login-shell">
+        <div class="login-card">
+          <div>
+            <p class="eyebrow">Secure sign in</p>
+            <h1>Welcome Back</h1>
+            <p>Continue with Google to start your scan and keep each business workspace separate.</p>
+          </div>
+          <button class="google-login-button" type="button" id="googleLoginButton">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 12.2c0-.7-.1-1.3-.2-1.9H12v3.6h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.2Z"/><path d="M12 22c2.7 0 5-0.9 6.6-2.5l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22Z"/><path d="M6.4 13.9A6 6 0 0 1 6 12c0-.7.1-1.3.4-1.9V7.5H3.1A10 10 0 0 0 2 12c0 1.6.4 3.1 1.1 4.5l3.3-2.6Z"/><path d="M12 6c1.5 0 2.8.5 3.8 1.5l2.9-2.9A9.8 9.8 0 0 0 12 2a10 10 0 0 0-8.9 5.5l3.3 2.6C7.2 7.8 9.4 6 12 6Z"/></svg>
+            Continue with Google
+          </button>
+          <div class="login-divider"><span>Or continue with email</span></div>
+          <form class="email-login-form">
+            <label>
+              <span>Email</span>
+              <input type="email" placeholder="you@business.com" autocomplete="email" />
+            </label>
+            <label>
+              <span>Password</span>
+              <input type="password" placeholder="Enter password" autocomplete="current-password" />
+            </label>
+            <button class="secondary-login-button" type="button">Log In With Email</button>
+          </form>
+          <div class="login-option-row">
+            <button class="text-button" type="button">Send Magic Link</button>
+            <button class="text-button" type="button">Forgot Password?</button>
+          </div>
+          <button class="text-button" type="button" id="backToLandingButton">Back to landing page</button>
+        </div>
       </div>
     </section>
 
@@ -216,11 +225,20 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.2 2h-.4a2 2 0 0 0-2 1.7l-.1.8a2 2 0 0 1-3 1.2l-.7-.5a2 2 0 0 0-2.7.7l-.2.4a2 2 0 0 0 .7 2.7l.7.5a2 2 0 0 1 0 3.2l-.7.5a2 2 0 0 0-.7 2.7l.2.4a2 2 0 0 0 2.7.7l.7-.5a2 2 0 0 1 3 1.2l.1.8a2 2 0 0 0 2 1.7h.4a2 2 0 0 0 2-1.7l.1-.8a2 2 0 0 1 3-1.2l.7.5a2 2 0 0 0 2.7-.7l.2-.4a2 2 0 0 0-.7-2.7l-.7-.5a2 2 0 0 1 0-3.2l.7-.5a2 2 0 0 0 .7-2.7l-.2-.4a2 2 0 0 0-2.7-.7l-.7.5a2 2 0 0 1-3-1.2l-.1-.8a2 2 0 0 0-2-1.7Z"/><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>
             Settings
           </button>
-          <div class="sidebar-profile" id="sideScore">
-            <span class="avatar">K</span>
-            <div>
-              <strong>Krish</strong>
-              <small>Workspace</small>
+          <div class="profile-menu-wrap">
+            <button class="sidebar-profile" id="profileMenuButton" type="button" aria-expanded="false" aria-controls="profileMenu">
+              <span class="avatar">K</span>
+              <span>
+                <strong>Krish</strong>
+                <small>Workspace</small>
+              </span>
+            </button>
+            <div class="profile-menu hidden" id="profileMenu">
+              <div>
+                <strong>Krish Workspace</strong>
+                <span id="profileBusinessLabel">No business selected</span>
+              </div>
+              <button type="button" id="logoutButton">Log Out</button>
             </div>
           </div>
         </div>
@@ -445,6 +463,6 @@ OPENROUTER_API_KEY=...</code></pre>
       <div id="dialogContent"></div>
     </dialog>
 
-    <script src="app.js?v=20260526-16"></script>
+    <script src="app.js?v=20260527-03"></script>
   </body>
 </html>

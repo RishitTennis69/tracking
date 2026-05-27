@@ -25,6 +25,10 @@ const els = {
   landingBusinessInput: document.querySelector("#landingBusinessInput"),
   googleLoginButton: document.querySelector("#googleLoginButton"),
   backToLandingButton: document.querySelector("#backToLandingButton"),
+  profileMenuButton: document.querySelector("#profileMenuButton"),
+  profileMenu: document.querySelector("#profileMenu"),
+  profileBusinessLabel: document.querySelector("#profileBusinessLabel"),
+  logoutButton: document.querySelector("#logoutButton"),
   scanForm: document.querySelector("#scanForm"),
   websiteInput: document.querySelector("#websiteInput"),
   businessInput: document.querySelector("#businessInput"),
@@ -122,6 +126,27 @@ function bindLanding() {
   });
 
   els.backToLandingButton?.addEventListener("click", () => showAppShell(false));
+
+  els.profileMenuButton?.addEventListener("click", (event) => {
+    event.stopPropagation();
+    toggleProfileMenu();
+  });
+
+  els.logoutButton?.addEventListener("click", () => {
+    localStorage.removeItem("gleoLoggedIn");
+    closeProfileMenu();
+    showAppShell(false);
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!els.profileMenu?.contains(event.target) && !els.profileMenuButton?.contains(event.target)) {
+      closeProfileMenu();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeProfileMenu();
+  });
 }
 
 function showLoginPage() {
@@ -134,6 +159,7 @@ function showAppShell(isVisible) {
   els.appShell?.classList.toggle("hidden", !isVisible);
   els.landingPage?.classList.toggle("hidden", isVisible);
   els.loginPage?.classList.add("hidden");
+  if (!isVisible) state.setupForcedOpen = false;
 }
 
 function applyPendingStart() {
@@ -154,6 +180,26 @@ function bindNavigation() {
       if (panel === "sentiment") renderSentiment();
     });
   });
+}
+
+function toggleProfileMenu() {
+  const willOpen = els.profileMenu?.classList.contains("hidden");
+  els.profileMenu?.classList.toggle("hidden", !willOpen);
+  els.profileMenuButton?.setAttribute("aria-expanded", willOpen ? "true" : "false");
+  renderProfileMenu();
+}
+
+function closeProfileMenu() {
+  els.profileMenu?.classList.add("hidden");
+  els.profileMenuButton?.setAttribute("aria-expanded", "false");
+}
+
+function renderProfileMenu() {
+  if (!els.profileBusinessLabel) return;
+  const scan = state.currentScan;
+  els.profileBusinessLabel.textContent = scan?.businessName
+    ? `${scan.businessName} · ${hostnameFor(scan.website || "") || "Current Site"}`
+    : "No business selected";
 }
 
 function bindScan() {
@@ -289,6 +335,7 @@ function renderAll() {
     renderSentiment,
     renderEvidence,
     renderTrend,
+    renderProfileMenu,
   ].forEach((render) => {
     try {
       render();
