@@ -245,7 +245,7 @@
       <aside class="sidebar" aria-label="Main navigation">
         <a class="brand" href="#" aria-label="Gleo GEO Insights">
           <strong>Gleo</strong>
-          <span>GEO Insights</span>
+          <span>Geo Insights</span>
         </a>
 
         <nav class="nav-list">
@@ -263,15 +263,15 @@
           </button>
           <button class="nav-item" type="button" data-panel="sentiment">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM8.5 9h.01M15.5 9h.01M8 13.5c1 1.4 2.3 2.1 4 2.1s3-.7 4-2.1" /></svg>
-            Sentiment Analysis
+            Competitive Analysis
+          </button>
+          <button class="nav-item" type="button" data-panel="settings">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18" /></svg>
+            Evidence Log
           </button>
         </nav>
 
         <div class="sidebar-footer">
-          <button class="nav-item secondary" type="button" data-panel="settings">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.2 2h-.4a2 2 0 0 0-2 1.7l-.1.8a2 2 0 0 1-3 1.2l-.7-.5a2 2 0 0 0-2.7.7l-.2.4a2 2 0 0 0 .7 2.7l.7.5a2 2 0 0 1 0 3.2l-.7.5a2 2 0 0 0-.7 2.7l.2.4a2 2 0 0 0 2.7.7l.7-.5a2 2 0 0 1 3 1.2l.1.8a2 2 0 0 0 2 1.7h.4a2 2 0 0 0 2-1.7l.1-.8a2 2 0 0 1 3-1.2l.7.5a2 2 0 0 0 2.7-.7l.2-.4a2 2 0 0 0-.7-2.7l-.7-.5a2 2 0 0 1 0-3.2l.7-.5a2 2 0 0 0 .7-2.7l-.2-.4a2 2 0 0 0-2.7-.7l-.7.5a2 2 0 0 1-3-1.2l-.1-.8a2 2 0 0 0-2-1.7Z"/><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>
-            Settings
-          </button>
           <div class="profile-menu-wrap">
             <button class="sidebar-profile" id="profileMenuButton" type="button" aria-expanded="false" aria-controls="profileMenu">
               <span class="avatar">K</span>
@@ -291,7 +291,31 @@
         </div>
       </aside>
 
-      <main class="main">
+      <div class="main-column">
+        <header class="topbar">
+          <div class="topbar-title">
+            <h1>Geo Insights</h1>
+            <nav class="top-tabs">
+              <button class="top-tab-btn active" type="button">Date Range</button>
+              <button class="top-tab-btn" type="button">Property Select</button>
+            </nav>
+          </div>
+          <div class="topbar-actions">
+            <div class="topbar-search">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0Z" stroke-width="2" stroke-linecap="round" fill="none" stroke="currentColor" /></svg>
+              <input type="text" placeholder="Search..." aria-label="Search" />
+            </div>
+            <button class="primary-button" type="button" id="newScanButton" hidden>Refresh Data</button>
+            <button class="icon-button topbar-icon-btn" type="button" aria-label="Notifications">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 1 7 7v4l1.7 2.5A1 1 0 0 1 19.8 17H4.2a1 1 0 0 1-.9-1.5L5 13V9a7 7 0 0 1 7-7Zm0 20a3 3 0 0 1-2.83-2h5.66A3 3 0 0 1 12 22Z" /></svg>
+            </button>
+            <button class="icon-button topbar-icon-btn" type="button" aria-label="Profile">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-5.33 0-8 2.67-8 4v1h16v-1c0-1.33-2.67-4-8-4Z" /></svg>
+            </button>
+          </div>
+        </header>
+
+        <main class="main">
         <section class="setup-card" id="setupCard" hidden>
           <div>
             <p class="eyebrow">Setup</p>
@@ -314,25 +338,15 @@
         </div>
 
         <section class="panels active" id="overview" aria-label="Overview">
-          <div class="overview-top">
-            <div>
-              <h2>Overview</h2>
-              <p>Your AI visibility at a glance.</p>
-            </div>
-            <button class="ghost-button new-scan-button" type="button" id="newScanButton" hidden>
-              New Scan
-            </button>
-          </div>
 
           <section class="property-bar workflow-card" id="propertyBar" aria-label="Scan setup">
           <div class="workflow-heading">
             <div>
               <p class="eyebrow">Tracking setup</p>
               <h2>Start with your website, then we build the AI visibility scan.</h2>
-              <p>We infer location and service areas from the site instead of asking users to type them in.</p>
             </div>
           </div>
-          <form id="scanForm" class="scan-form">
+          <form id="scanForm" class="scan-form scan-form-horizontal">
             <label class="workflow-step website-field">
               <span class="step-number">1</span>
               <span class="field">
@@ -349,8 +363,15 @@
               </span>
             </label>
 
-            <button class="primary-button scan-submit-button border-beam-button" type="submit" id="runButton">Start Scan</button>
+            <label class="workflow-step">
+              <span class="step-number">3</span>
+              <span class="field">
+                <span>Location</span>
+                <input name="location" type="text" placeholder="San Francisco, CA" />
+              </span>
+            </label>
 
+            <button class="primary-button scan-submit-button border-beam-button" type="submit" id="runButton" style="display:none">Start Scan</button>
             <input type="hidden" name="platforms" value="openai" />
             <input type="hidden" name="platforms" value="gemini" />
             <input type="hidden" name="platforms" value="openrouter" />
@@ -360,60 +381,73 @@
           </div>
           </section>
 
-          <div class="kpi-grid">
-            <article class="kpi-card score-card">
+          <div class="kpi-grid kpi-grid-4">
+            <article class="kpi-card score-card-new" id="scoreCardNew">
               <div class="kpi-heading">
                 <span>AI Visibility Score</span>
+                <svg class="kpi-info-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke-width="2" fill="none" stroke="currentColor"/><path d="M12 7v1m0 4v5" stroke-width="2" stroke-linecap="round" stroke="currentColor" fill="none"/></svg>
               </div>
-              <div class="score-display"><strong id="miniScore">-</strong><span>/100</span></div>
+              <div class="score-display score-display-new"><strong id="miniScore">-</strong><span>/100</span></div>
               <div class="kpi-change" id="scoreDelta"></div>
+              <div class="needs-scan-tag" id="needsScanTag">Needs scan</div>
             </article>
 
             <article class="kpi-card metric-card mention-card">
               <div class="kpi-title-row">
                 <span class="kpi-label">Mention Rate</span>
-                <span class="kpi-icon kpi-icon-purple" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5.5A3.5 3.5 0 0 1 7.5 2h9A3.5 3.5 0 0 1 20 5.5v6A3.5 3.5 0 0 1 16.5 15h-4.3l-4.7 4.1V15A3.5 3.5 0 0 1 4 11.5v-6Zm3.5-1.3a1.3 1.3 0 0 0-1.3 1.3v6a1.3 1.3 0 0 0 1.3 1.3h2.2v1.5l1.7-1.5h5.1a1.3 1.3 0 0 0 1.3-1.3v-6a1.3 1.3 0 0 0-1.3-1.3h-9Zm1.1 3h6.8v1.7H8.6V7.2Zm0 3h4.4v1.7H8.6v-1.7Z" /></svg></span>
               </div>
               <strong id="mentionRate">-</strong>
+              <p class="kpi-desc">of AI responses mention your business.</p>
               <div class="kpi-change" id="mentionDelta"></div>
+            </article>
+
+            <article class="kpi-card metric-card ai-mentions-card">
+              <div class="kpi-title-row">
+                <span class="kpi-label">AI Mentions</span>
+              </div>
+              <strong id="aiMentionsCount">-</strong>
+              <p class="kpi-desc">Total times AI answers mention your business.</p>
             </article>
 
             <article class="kpi-card metric-card rank-card">
               <div class="kpi-title-row">
                 <span class="kpi-label">Average Rank</span>
-                <span class="kpi-icon kpi-icon-blue" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M17 3h4v4a5 5 0 0 1-5 5h-.3A6 6 0 0 1 13 14.7V18h3v2H8v-2h3v-3.3A6 6 0 0 1 8.3 12H8a5 5 0 0 1-5-5V3h4V2h10v1ZM7 5H5v2a3 3 0 0 0 2.7 3A7.3 7.3 0 0 1 7 7V5Zm10 0v2c0 1.1-.2 2.1-.7 3A3 3 0 0 0 19 7V5h-2ZM9 4v3c0 3 1.3 5.5 3 5.5S15 10 15 7V4H9Z" /></svg></span>
               </div>
               <strong id="avgRank">-</strong>
+              <p class="kpi-desc">Placement appears after the business is mentioned.</p>
               <div class="kpi-change" id="rankDelta"></div>
-            </article>
-
-            <article class="kpi-card metric-card sentiment-card">
-              <div class="kpi-title-row">
-                <span class="kpi-label">Sentiment</span>
-                <span class="kpi-icon kpi-icon-green" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20ZM8.2 9.2a1.3 1.3 0 1 1 2.6 0 1.3 1.3 0 0 1-2.6 0Zm5 0a1.3 1.3 0 1 1 2.6 0 1.3 1.3 0 0 1-2.6 0ZM7.5 13h2.1a2.7 2.7 0 0 0 4.8 0h2.1a4.7 4.7 0 0 1-9 0Z" /></svg></span>
-              </div>
-              <strong id="overviewSentiment">-</strong>
-              <div class="kpi-change" id="sentimentDelta"></div>
             </article>
           </div>
 
-          <div class="dashboard-grid">
+          <div class="dashboard-grid-2col">
             <article class="dashboard-card trend-card">
               <div class="card-title-row">
                 <h2>Visibility Trend <span>(Mention Over Time)</span></h2>
-                <label class="date-select-wrap" aria-label="Trend date range">
-                  <span class="date-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M7 2v3M17 2v3M4 9h16M6 5h12a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" /></svg>
-                  </span>
-                  <select class="date-select" id="trendRangeSelect">
-                    <option value="7">Last 7 Days</option>
-                    <option value="30">Last Month</option>
-                    <option value="183">Last 6 Months</option>
-                    <option value="365">Last Year</option>
-                  </select>
-                </label>
+                <button class="menu-button" type="button" aria-label="Options">···</button>
               </div>
+              <label class="date-select-wrap" aria-label="Trend date range" style="display:none">
+                <span class="date-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M7 2v3M17 2v3M4 9h16M6 5h12a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" /></svg>
+                </span>
+                <select class="date-select" id="trendRangeSelect">
+                  <option value="7">Last 7 Days</option>
+                  <option value="30">Last Month</option>
+                  <option value="183">Last 6 Months</option>
+                  <option value="365">Last Year</option>
+                </select>
+              </label>
               <svg class="trend-chart" id="trendChart" viewBox="0 0 760 280" role="img" aria-label="Visibility trend"></svg>
+            </article>
+
+            <article class="dashboard-card competitor-share-card">
+              <div class="card-title-row">
+                <h2>Competitor Share of Voice</h2>
+                <svg class="kpi-info-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke-width="2" fill="none" stroke="currentColor"/><path d="M12 7v1m0 4v5" stroke-width="2" stroke-linecap="round" stroke="currentColor" fill="none"/></svg>
+              </div>
+              <div class="competitor-share-empty" id="competitorShareEmpty">
+                <p>Competitor share appears after completed AI answers.</p>
+              </div>
+              <div id="competitorShareGrid"></div>
             </article>
           </div>
 
@@ -505,7 +539,8 @@ OPENROUTER_API_KEY=...</code></pre>
           <h2>No scan results yet</h2>
           <p>Start with the business name and website. Gleo will infer location and service areas from the site, then populate the dashboard with real scan output.</p>
         </section>
-      </main>
+        </main>
+      </div>
     </div>
 
     <dialog id="answerDialog">
