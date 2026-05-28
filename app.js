@@ -20,6 +20,7 @@ const state = {
   trendRangeDays: 7,
   pendingStart: null,
   onboardingScanPromise: null,
+  notifyOnScanComplete: false,
 };
 
 const els = {
@@ -154,8 +155,7 @@ function bindOnboarding() {
         if (data.scan) {
           state.currentScan = data.scan;
           if (!state.scans.find((s) => s.id === data.scan.id)) state.scans.push(data.scan);
-          // Only fire notification here if the user hasn't navigated to the dashboard yet
-          if (!els.onboardingPage?.classList.contains("hidden")) {
+          if (state.notifyOnScanComplete && !els.onboardingPage?.classList.contains("hidden")) {
             sendScanCompleteNotification(displayName);
           }
           return data.scan;
@@ -167,6 +167,7 @@ function bindOnboarding() {
 
   els.onboardingNotifyBtn?.addEventListener("click", async () => {
     await requestNotificationPermission();
+    state.notifyOnScanComplete = Notification.permission === "granted";
   });
 }
 
@@ -354,7 +355,6 @@ function bindScan() {
         ? ` Missing keys: ${data.scan.missingPlatforms.map(providerLabel).join(", ")}.`
         : "";
       setStatus(`Scan complete. ${completed} AI answers analyzed.${missing}`, completed ? "ready" : "error");
-      sendScanCompleteNotification(data.scan.businessName || hostnameFor(data.scan.website || ""));
     } catch (error) {
       setStatus(error.message || "The scan could not complete.", "error");
     } finally {
