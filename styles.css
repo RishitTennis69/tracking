@@ -203,10 +203,12 @@ svg {
 .landing-copy h1 {
   max-width: 760px;
   margin: 0;
-  color: #080b2a;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  color: var(--color-text);
   font-size: clamp(44px, 6.1vw, 76px);
   line-height: 0.96;
-  letter-spacing: 0;
+  letter-spacing: -0.03em;
   text-wrap: balance;
 }
 
@@ -1246,15 +1248,20 @@ svg {
 }
 
 .brand strong {
+  font-family: var(--font-heading);
   font-size: 24px;
+  font-weight: 500;
   line-height: 1;
   color: var(--color-text);
+  letter-spacing: -0.02em;
 }
 
 .brand span {
   color: var(--color-text-soft);
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .nav-list {
@@ -1267,25 +1274,26 @@ svg {
   align-items: center;
   gap: 11px;
   width: 100%;
-  min-height: 44px;
-  padding: 0 13px;
-  border: 1px solid transparent;
+  min-height: 40px;
+  padding: 0 12px;
+  border: 0;
+  border-right: 3px solid transparent;
   border-radius: var(--radius-sm);
   background: transparent;
   color: var(--color-text-muted);
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 600;
   text-align: left;
   transition:
-    background 0.16s ease,
-    color 0.16s ease,
-    border-color 0.16s ease;
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .nav-item svg {
   flex: 0 0 auto;
-  width: 18px;
-  height: 18px;
+  width: 17px;
+  height: 17px;
   fill: none;
   stroke: currentColor;
   stroke-linecap: round;
@@ -1303,7 +1311,8 @@ svg {
 .nav-item.active {
   background: var(--color-primary-soft);
   color: var(--color-primary);
-  border-color: var(--color-primary-border);
+  border-right-color: var(--color-primary);
+  font-weight: 700;
 }
 
 .sidebar-footer {
@@ -1458,36 +1467,31 @@ svg {
 
 .top-tabs {
   display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px;
-  background: var(--color-bg-soft);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  align-items: stretch;
+  gap: 0;
 }
 
 .top-tab-btn {
-  min-height: 32px;
-  padding: 0 12px;
+  min-height: 36px;
+  padding: 0 14px;
   border: 0;
-  border-radius: 9px;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
   background: transparent;
   color: var(--color-text-muted);
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 600;
   white-space: nowrap;
   cursor: pointer;
   transition:
-    background 0.16s ease,
-    color 0.16s ease,
-    box-shadow 0.16s ease;
+    color 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .top-tab-btn.active,
 .top-tabs button.active {
-  background: #ffffff;
-  color: var(--color-text);
-  box-shadow: var(--shadow-sm);
+  border-bottom-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .topbar-actions {
@@ -2173,7 +2177,7 @@ svg {
 }
 
 .score-display-new strong {
-  color: var(--color-text);
+  color: var(--color-primary);
   font-family: var(--font-heading);
   font-size: 52px;
   font-weight: 500;
