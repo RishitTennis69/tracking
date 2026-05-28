@@ -158,6 +158,8 @@ function bindOnboarding() {
           if (state.notifyOnScanComplete && !els.onboardingPage?.classList.contains("hidden")) {
             sendScanCompleteNotification(displayName);
           }
+          showAppShell(true);
+          renderAll();
           return data.scan;
         }
         return null;
