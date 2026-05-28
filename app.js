@@ -19,6 +19,7 @@ const state = {
   sentimentAnimationScanId: "",
   trendRangeDays: 7,
   pendingStart: null,
+  onboardingScanPromise: null,
 };
 
 const els = {
@@ -88,6 +89,17 @@ const els = {
   clearResultsButton: document.querySelector("#clearResultsButton"),
   developerEmailButton: document.querySelector("#developerEmailButton"),
   actionEmailButton: document.querySelector("#actionEmailButton"),
+  onboardingPage: document.querySelector("#onboardingPage"),
+  onboardingForm: document.querySelector("#onboardingForm"),
+  onboardingBusinessInput: document.querySelector("#onboardingBusinessInput"),
+  onboardingWebsiteInput: document.querySelector("#onboardingWebsiteInput"),
+  onboardingSubmitButton: document.querySelector("#onboardingSubmitButton"),
+  onboardingStep1: document.querySelector("#onboardingStep1"),
+  onboardingStep2: document.querySelector("#onboardingStep2"),
+  onboardingBusinessName: document.querySelector("#onboardingBusinessName"),
+  onboardingNotifyBtn: document.querySelector("#onboardingNotifyBtn"),
+  onboardingNotifyGranted: document.querySelector("#onboardingNotifyGranted"),
+  onboardingWatchButton: document.querySelector("#onboardingWatchButton"),
 };
 
 if (document.readyState === "loading") {
@@ -99,6 +111,7 @@ if (document.readyState === "loading") {
 async function init() {
   bindAuthStateChange();
   bindLanding();
+  bindOnboarding();
   bindNavigation();
   bindScan();
   bindClear();
@@ -107,8 +120,14 @@ async function init() {
   bindDeveloperEmail();
   const { data: { session } } = await supabase.auth.getSession();
   if (session) {
-    showAppShell(true);
-    await loadInitialData();
+    const scansData = await fetchJson("/api/scans");
+    const hasScans = (scansData.scans || []).length > 0;
+    if (hasScans) {
+      showAppShell(true);
+      await loadInitialData();
+    } else {
+      showOnboarding();
+    }
   } else {
     showAppShell(false);
   }
@@ -117,14 +136,123 @@ async function init() {
 function bindAuthStateChange() {
   supabase.auth.onAuthStateChange((event, session) => {
     if (event === "SIGNED_IN" && session) {
-      showAppShell(true);
-      applyPendingStart();
-      (async () => { await loadInitialData(); })();
+      (async () => {
+        const scansData = await fetchJson("/api/scans");
+        const hasScans = (scansData.scans || []).length > 0;
+        if (hasScans) {
+          showAppShell(true);
+          applyPendingStart();
+          await loadInitialData();
+        } else {
+          if (state.pendingStart?.website) {
+            if (els.onboardingWebsiteInput) els.onboardingWebsiteInput.value = state.pendingStart.website;
+            if (els.onboardingBusinessInput) els.onboardingBusinessInput.value = state.pendingStart.businessName || "";
+          }
+          showOnboarding();
+        }
+      })();
     } else if (event === "SIGNED_OUT") {
       closeProfileMenu();
       showAppShell(false);
     }
   });
+}
+
+function showOnboarding() {
+  els.landingPage?.classList.add("hidden");
+  els.loginPage?.classList.add("hidden");
+  els.appShell?.classList.add("hidden");
+  els.onboardingPage?.classList.remove("hidden");
+  els.onboardingStep1?.classList.remove("hidden");
+  els.onboardingStep2?.classList.add("hidden");
+  els.onboardingWebsiteInput?.focus();
+}
+
+function bindOnboarding() {
+  els.onboardingForm?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const website = els.onboardingWebsiteInput?.value.trim();
+    const businessName = els.onboardingBusinessInput?.value.trim();
+    if (!website) return;
+
+    const displayName = businessName || website;
+    if (els.onboardingBusinessName) els.onboardingBusinessName.textContent = displayName;
+
+    els.onboardingStep1?.classList.add("hidden");
+    els.onboardingStep2?.classList.remove("hidden");
+
+    requestNotificationPermission();
+
+    const platforms = ["openai", "gemini", "openrouter"];
+    state.onboardingScanPromise = fetch("/api/scan", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ website, businessName, platforms }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.scan) {
+          state.currentScan = data.scan;
+          if (!state.scans.find((s) => s.id === data.scan.id)) state.scans.push(data.scan);
+          sendScanCompleteNotification(displayName);
+          return data.scan;
+        }
+        return null;
+      })
+      .catch(() => null);
+  });
+
+  els.onboardingWatchButton?.addEventListener("click", async () => {
+    showAppShell(true);
+    await loadInitialData();
+    if (state.onboardingScanPromise) {
+      setScanning(true);
+      state.onboardingScanPromise.then((scan) => {
+        if (scan) {
+          setScanning(false);
+          state.currentScan = scan;
+          state.scans.push(scan);
+          renderAll();
+          const completed = scan.metrics?.completedAnswers || 0;
+          setStatus(`Scan complete. ${completed} AI answers analyzed.`, completed ? "ready" : "error");
+        }
+      }).catch(() => setScanning(false));
+    }
+  });
+
+  els.onboardingNotifyBtn?.addEventListener("click", async () => {
+    await requestNotificationPermission();
+  });
+}
+
+async function requestNotificationPermission() {
+  if (!("Notification" in window)) return;
+  if (Notification.permission === "granted") {
+    showNotifyGranted();
+    return;
+  }
+  if (Notification.permission === "denied") return;
+  const result = await Notification.requestPermission();
+  if (result === "granted") showNotifyGranted();
+}
+
+function showNotifyGranted() {
+  els.onboardingNotifyBtn?.classList.add("hidden");
+  els.onboardingNotifyGranted?.classList.remove("hidden");
+}
+
+function sendScanCompleteNotification(businessName) {
+  if (Notification.permission !== "granted") return;
+  const n = new Notification("Gleo scan complete", {
+    body: `Your AI visibility results for ${businessName} are ready.`,
+    icon: "/favicon.ico",
+  });
+  n.onclick = () => {
+    window.focus();
+    showAppShell(true);
+    loadInitialData();
+    n.close();
+  };
 }
 
 function bindLanding() {
@@ -180,6 +308,7 @@ function showAppShell(isVisible) {
   els.appShell?.classList.toggle("hidden", !isVisible);
   els.landingPage?.classList.toggle("hidden", isVisible);
   els.loginPage?.classList.add("hidden");
+  els.onboardingPage?.classList.add("hidden");
   if (!isVisible) state.setupForcedOpen = false;
 }
 
@@ -236,13 +365,13 @@ async function renderProfileMenu() {
 
 function bindScan() {
   els.newScanButton?.addEventListener("click", () => {
-    state.setupForcedOpen = true;
-    if (state.currentScan) {
-      if (els.websiteInput) els.websiteInput.value = state.currentScan.website || "";
-      if (els.businessInput) els.businessInput.value = state.currentScan.businessName || "";
+    if (els.onboardingWebsiteInput && state.currentScan) {
+      els.onboardingWebsiteInput.value = state.currentScan.website || "";
     }
-    renderSetupVisibility();
-    els.websiteInput?.focus();
+    if (els.onboardingBusinessInput && state.currentScan) {
+      els.onboardingBusinessInput.value = state.currentScan.businessName || "";
+    }
+    showOnboarding();
   });
 
   els.scanForm.addEventListener("submit", async (event) => {
@@ -281,6 +410,7 @@ function bindScan() {
         ? ` Missing keys: ${data.scan.missingPlatforms.map(providerLabel).join(", ")}.`
         : "";
       setStatus(`Scan complete. ${completed} AI answers analyzed.${missing}`, completed ? "ready" : "error");
+      sendScanCompleteNotification(data.scan.businessName || hostnameFor(data.scan.website || ""));
     } catch (error) {
       setStatus(error.message || "The scan could not complete.", "error");
     } finally {
@@ -446,10 +576,11 @@ function renderOverview() {
 function renderSetupVisibility() {
   if (!els.propertyBar) return;
   const hasCompletedScan = Boolean(state.currentScan?.metrics?.completedAnswers);
-  const hideSetup = hasCompletedScan && !state.isScanning && !state.setupForcedOpen;
+  const onboardingRunning = Boolean(state.onboardingScanPromise);
+  const hideSetup = (hasCompletedScan || onboardingRunning) && !state.isScanning && !state.setupForcedOpen;
   els.propertyBar.classList.toggle("hidden", hideSetup);
   if (els.newScanButton) {
-    els.newScanButton.hidden = !hasCompletedScan || state.isScanning || state.setupForcedOpen;
+    els.newScanButton.hidden = (!hasCompletedScan && !onboardingRunning) || state.isScanning || state.setupForcedOpen;
   }
   els.overviewPanel?.classList.remove("setup-skipped");
 }

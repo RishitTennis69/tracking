@@ -193,6 +193,54 @@
       </div>
     </section>
 
+    <section class="onboarding-page hidden" id="onboardingPage">
+      <div class="onboarding-shell">
+        <div class="onboarding-card" id="onboardingCard">
+          <div class="onboarding-brand">
+            <strong>Gleo</strong>
+            <span>GEO Insights</span>
+          </div>
+
+          <div class="onboarding-step" id="onboardingStep1">
+            <p class="eyebrow">Step 1 of 1</p>
+            <h1>Tell us about your business</h1>
+            <p class="onboarding-lede">Gleo will crawl your site, generate realistic customer prompts, then check how ChatGPT, Gemini, and Claude mention you.</p>
+            <form class="onboarding-form" id="onboardingForm">
+              <label>
+                <span>Business Name</span>
+                <input id="onboardingBusinessInput" type="text" placeholder="Willow Creek Dental" autocomplete="organization" />
+              </label>
+              <label>
+                <span>Website URL</span>
+                <input id="onboardingWebsiteInput" type="url" placeholder="https://yourbusiness.com" required autocomplete="url" />
+              </label>
+              <button class="primary-button border-beam-button" type="submit" id="onboardingSubmitButton">Start My Scan</button>
+            </form>
+          </div>
+
+          <div class="onboarding-step hidden" id="onboardingStep2">
+            <div class="onboarding-scanning-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" stroke-width="4" fill="none" /><path d="M32 14v18l10 6" stroke-width="4" stroke-linecap="round" fill="none" /></svg>
+            </div>
+            <h1>Your scan is running</h1>
+            <p class="onboarding-notice-main" id="onboardingNoticeMain">This usually takes 2–4 minutes for <strong id="onboardingBusinessName"></strong>.</p>
+            <p class="onboarding-notice-sub">Feel free to close this tab or switch to something else. We'll send a browser notification the moment your results are ready.</p>
+            <div class="onboarding-notify-wrap" id="onboardingNotifyWrap">
+              <button class="onboarding-notify-btn" type="button" id="onboardingNotifyBtn">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 1 7 7v4l1.7 2.5A1 1 0 0 1 19.8 17H4.2a1 1 0 0 1-.9-1.5L5 13V9a7 7 0 0 1 7-7Zm0 20a3 3 0 0 1-2.83-2h5.66A3 3 0 0 1 12 22Z" /></svg>
+                Notify me when done
+              </button>
+              <p class="onboarding-notify-granted hidden" id="onboardingNotifyGranted">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" /></svg>
+                Notifications on — we'll ping you when results are ready.
+              </p>
+            </div>
+            <button class="text-button" type="button" id="onboardingWatchButton">Watch it run in the dashboard</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <div class="app-shell hidden" id="appShell">
       <aside class="sidebar" aria-label="Main navigation">
         <a class="brand" href="#" aria-label="Gleo GEO Insights">
