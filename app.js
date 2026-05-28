@@ -109,7 +109,6 @@ if (document.readyState === "loading") {
 }
 
 async function init() {
-  bindAuthStateChange();
   bindLanding();
   bindOnboarding();
   bindNavigation();
@@ -118,44 +117,7 @@ async function init() {
   bindMetricFilters();
   bindTrendRange();
   bindDeveloperEmail();
-  const { data: { session } } = await supabase.auth.getSession();
-  if (session) {
-    const scansData = await fetchJson("/api/scans");
-    const hasScans = (scansData.scans || []).length > 0;
-    if (hasScans) {
-      showAppShell(true);
-      await loadInitialData();
-    } else {
-      showOnboarding();
-    }
-  } else {
-    showAppShell(false);
-  }
-}
-
-function bindAuthStateChange() {
-  supabase.auth.onAuthStateChange((event, session) => {
-    if (event === "SIGNED_IN" && session) {
-      (async () => {
-        const scansData = await fetchJson("/api/scans");
-        const hasScans = (scansData.scans || []).length > 0;
-        if (hasScans) {
-          showAppShell(true);
-          applyPendingStart();
-          await loadInitialData();
-        } else {
-          if (state.pendingStart?.website) {
-            if (els.onboardingWebsiteInput) els.onboardingWebsiteInput.value = state.pendingStart.website;
-            if (els.onboardingBusinessInput) els.onboardingBusinessInput.value = state.pendingStart.businessName || "";
-          }
-          showOnboarding();
-        }
-      })();
-    } else if (event === "SIGNED_OUT") {
-      closeProfileMenu();
-      showAppShell(false);
-    }
-  });
+  showAppShell(false);
 }
 
 function showOnboarding() {
@@ -269,11 +231,8 @@ function bindLanding() {
     showOnboarding();
   });
 
-  els.googleLoginButton?.addEventListener("click", async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: { redirectTo: window.location.origin },
-    });
+  els.googleLoginButton?.addEventListener("click", () => {
+    showOnboarding();
   });
 
   els.backToLandingButton?.addEventListener("click", () => showAppShell(false));
@@ -283,8 +242,9 @@ function bindLanding() {
     toggleProfileMenu();
   });
 
-  els.logoutButton?.addEventListener("click", async () => {
-    await supabase.auth.signOut();
+  els.logoutButton?.addEventListener("click", () => {
+    closeProfileMenu();
+    showAppShell(false);
   });
 
   document.addEventListener("click", (event) => {
