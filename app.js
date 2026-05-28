@@ -156,7 +156,10 @@ function bindOnboarding() {
         if (data.scan) {
           state.currentScan = data.scan;
           if (!state.scans.find((s) => s.id === data.scan.id)) state.scans.push(data.scan);
-          sendScanCompleteNotification(displayName);
+          // Only fire notification here if the user hasn't navigated to the dashboard yet
+          if (!els.onboardingPage?.classList.contains("hidden")) {
+            sendScanCompleteNotification(displayName);
+          }
           return data.scan;
         }
         return null;
@@ -177,6 +180,7 @@ function bindOnboarding() {
           renderAll();
           const completed = scan.metrics?.completedAnswers || 0;
           setStatus(`Scan complete. ${completed} AI answers analyzed.`, completed ? "ready" : "error");
+          sendScanCompleteNotification(scan.businessName || hostnameFor(scan.website || ""));
         }
       }).catch(() => setScanning(false));
     }
