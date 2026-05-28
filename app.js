@@ -257,16 +257,16 @@ function sendScanCompleteNotification(businessName) {
 
 function bindLanding() {
   document.querySelectorAll("[data-login-open]").forEach((button) => {
-    button.addEventListener("click", () => showLoginPage());
+    button.addEventListener("click", () => showOnboarding());
   });
 
   els.landingStartForm?.addEventListener("submit", (event) => {
     event.preventDefault();
-    state.pendingStart = {
-      website: els.landingWebsiteInput.value.trim(),
-      businessName: els.landingBusinessInput.value.trim(),
-    };
-    showLoginPage();
+    const website = els.landingWebsiteInput.value.trim();
+    const businessName = els.landingBusinessInput.value.trim();
+    if (els.onboardingWebsiteInput) els.onboardingWebsiteInput.value = website;
+    if (els.onboardingBusinessInput) els.onboardingBusinessInput.value = businessName;
+    showOnboarding();
   });
 
   els.googleLoginButton?.addEventListener("click", async () => {
@@ -301,6 +301,7 @@ function bindLanding() {
 function showLoginPage() {
   els.landingPage?.classList.add("hidden");
   els.appShell?.classList.add("hidden");
+  els.onboardingPage?.classList.add("hidden");
   els.loginPage?.classList.remove("hidden");
 }
 
