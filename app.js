@@ -1,3 +1,8 @@
+const supabase = window.supabase.createClient(
+  "https://0ec90b57d6e95fcbda19832f.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJib2x0IiwicmVmIjoiMGVjOTBiNTdkNmU5NWZjYmRhMTk4MzJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4ODE1NzQsImV4cCI6MTc1ODg4MTU3NH0.9I8-U0x86Ak8t2DGaIk0HfvTSLsAyzdnz-Nw00mMkKw"
+);
+
 const state = {
   config: null,
   scans: [],
@@ -92,6 +97,7 @@ if (document.readyState === "loading") {
 }
 
 async function init() {
+  bindAuthStateChange();
   bindLanding();
   bindNavigation();
   bindScan();
@@ -99,13 +105,29 @@ async function init() {
   bindMetricFilters();
   bindTrendRange();
   bindDeveloperEmail();
-  await loadInitialData();
+  const { data: { session } } = await supabase.auth.getSession();
+  if (session) {
+    showAppShell(true);
+    await loadInitialData();
+  } else {
+    showAppShell(false);
+  }
+}
+
+function bindAuthStateChange() {
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (event === "SIGNED_IN" && session) {
+      showAppShell(true);
+      applyPendingStart();
+      (async () => { await loadInitialData(); })();
+    } else if (event === "SIGNED_OUT") {
+      closeProfileMenu();
+      showAppShell(false);
+    }
+  });
 }
 
 function bindLanding() {
-  const isLoggedIn = localStorage.getItem("gleoLoggedIn") === "true";
-  showAppShell(isLoggedIn);
-
   document.querySelectorAll("[data-login-open]").forEach((button) => {
     button.addEventListener("click", () => showLoginPage());
   });
@@ -119,10 +141,11 @@ function bindLanding() {
     showLoginPage();
   });
 
-  els.googleLoginButton?.addEventListener("click", () => {
-    localStorage.setItem("gleoLoggedIn", "true");
-    showAppShell(true);
-    applyPendingStart();
+  els.googleLoginButton?.addEventListener("click", async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: window.location.origin },
+    });
   });
 
   els.backToLandingButton?.addEventListener("click", () => showAppShell(false));
@@ -132,10 +155,8 @@ function bindLanding() {
     toggleProfileMenu();
   });
 
-  els.logoutButton?.addEventListener("click", () => {
-    localStorage.removeItem("gleoLoggedIn");
-    closeProfileMenu();
-    showAppShell(false);
+  els.logoutButton?.addEventListener("click", async () => {
+    await supabase.auth.signOut();
   });
 
   document.addEventListener("click", (event) => {
@@ -194,12 +215,23 @@ function closeProfileMenu() {
   els.profileMenuButton?.setAttribute("aria-expanded", "false");
 }
 
-function renderProfileMenu() {
+async function renderProfileMenu() {
   if (!els.profileBusinessLabel) return;
   const scan = state.currentScan;
   els.profileBusinessLabel.textContent = scan?.businessName
     ? `${scan.businessName} · ${hostnameFor(scan.website || "") || "Current Site"}`
     : "No business selected";
+
+  const { data: { user } } = await supabase.auth.getUser();
+  if (user) {
+    const name = user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split("@")[0] || "User";
+    const avatarEl = document.querySelector(".sidebar-profile .avatar");
+    const nameEl = document.querySelector(".sidebar-profile > span > strong");
+    if (avatarEl) avatarEl.textContent = name[0].toUpperCase();
+    if (nameEl) nameEl.textContent = name;
+    const menuNameEl = document.querySelector("#profileMenu > div > strong");
+    if (menuNameEl) menuNameEl.textContent = `${name}'s Workspace`;
+  }
 }
 
 function bindScan() {
