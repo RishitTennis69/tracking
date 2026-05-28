@@ -99,7 +99,6 @@ const els = {
   onboardingBusinessName: document.querySelector("#onboardingBusinessName"),
   onboardingNotifyBtn: document.querySelector("#onboardingNotifyBtn"),
   onboardingNotifyGranted: document.querySelector("#onboardingNotifyGranted"),
-  onboardingWatchButton: document.querySelector("#onboardingWatchButton"),
 };
 
 if (document.readyState === "loading") {
@@ -143,8 +142,6 @@ function bindOnboarding() {
     els.onboardingStep1?.classList.add("hidden");
     els.onboardingStep2?.classList.remove("hidden");
 
-    requestNotificationPermission();
-
     const platforms = ["openai", "gemini", "openrouter"];
     state.onboardingScanPromise = fetch("/api/scan", {
       method: "POST",
@@ -165,25 +162,6 @@ function bindOnboarding() {
         return null;
       })
       .catch(() => null);
-  });
-
-  els.onboardingWatchButton?.addEventListener("click", async () => {
-    showAppShell(true);
-    await loadInitialData();
-    if (state.onboardingScanPromise) {
-      setScanning(true);
-      state.onboardingScanPromise.then((scan) => {
-        if (scan) {
-          setScanning(false);
-          state.currentScan = scan;
-          state.scans.push(scan);
-          renderAll();
-          const completed = scan.metrics?.completedAnswers || 0;
-          setStatus(`Scan complete. ${completed} AI answers analyzed.`, completed ? "ready" : "error");
-          sendScanCompleteNotification(scan.businessName || hostnameFor(scan.website || ""));
-        }
-      }).catch(() => setScanning(false));
-    }
   });
 
   els.onboardingNotifyBtn?.addEventListener("click", async () => {
