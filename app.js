@@ -442,6 +442,9 @@ function renderAll() {
   [
     renderConfig,
     renderOverview,
+    renderCategories,
+    renderOverviewCompetitors,
+    renderCompetitors,
     renderPrompts,
     renderSources,
     renderInsights,
