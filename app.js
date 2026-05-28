@@ -101,6 +101,7 @@ const els = {
   onboardingBusinessName: document.querySelector("#onboardingBusinessName"),
   onboardingNotifyBtn: document.querySelector("#onboardingNotifyBtn"),
   onboardingNotifyGranted: document.querySelector("#onboardingNotifyGranted"),
+  onboardingSeeResultsBtn: document.querySelector("#onboardingSeeResultsBtn"),
 };
 
 if (document.readyState === "loading") {
@@ -158,8 +159,7 @@ function bindOnboarding() {
           if (state.notifyOnScanComplete && !els.onboardingPage?.classList.contains("hidden")) {
             sendScanCompleteNotification(displayName);
           }
-          showAppShell(true);
-          renderAll();
+          els.onboardingSeeResultsBtn?.classList.remove("hidden");
           return data.scan;
         }
         return null;
@@ -170,6 +170,11 @@ function bindOnboarding() {
   els.onboardingNotifyBtn?.addEventListener("click", async () => {
     await requestNotificationPermission();
     state.notifyOnScanComplete = Notification.permission === "granted";
+  });
+
+  els.onboardingSeeResultsBtn?.addEventListener("click", () => {
+    showAppShell(true);
+    renderAll();
   });
 }
 

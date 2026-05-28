@@ -4825,6 +4825,28 @@ dialog::backdrop {
   height: 16px;
 }
 
+.onboarding-see-results {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 28px;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent, #2563eb);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  margin-top: 8px;
+}
+
+.onboarding-see-results:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
 .onboarding-notify-granted {
   display: inline-flex;
   align-items: center;
