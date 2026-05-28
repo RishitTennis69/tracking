@@ -91,6 +91,11 @@ async function runScan(payload, previousScans = []) {
   const businessName = cleanText(payload.businessName || "") || inferNameFromUrl(website);
   const submittedLocation = cleanText(payload.location || "");
   const configuredPlatforms = selectedPlatforms.filter((platform) => isProviderConfigured(platform));
+
+  if (configuredPlatforms.length === 0) {
+    return buildDemoScan({ website, businessName, submittedLocation, selectedPlatforms });
+  }
+
   const startedAt = new Date().toISOString();
   const crawledSite = await crawlSite(website);
   const site = await enrichSiteWithAIProfile({ site: crawledSite, businessName, location: submittedLocation || "United States" });
@@ -1516,6 +1521,151 @@ async function getConfig() {
 function normalizePlatforms(platforms) {
   const selected = Array.isArray(platforms) && platforms.length ? platforms : Object.keys(PROVIDERS);
   return selected.filter((platform) => Object.hasOwn(PROVIDERS, platform));
+}
+
+function buildDemoScan({ website, businessName, submittedLocation, selectedPlatforms }) {
+  const name = businessName || inferNameFromUrl(website);
+  const location = submittedLocation || "United States";
+  const hostname = new URL(website).hostname;
+  const categories = ["General Discovery", "Availability & Booking", "Local & Near Me", "Reviews & Reputation", "Comparison"];
+  const platforms = ["openai", "gemini", "openrouter"];
+  const platformLabels = { openai: "ChatGPT", gemini: "Gemini", openrouter: "Claude" };
+
+  const sentiments = ["positive", "positive", "positive", "neutral", "neutral", "negative"];
+  const competitorNames = ["Acme Solutions", "BrightPath Co.", "NextLevel Agency", "Vertex Partners"];
+
+  const results = [];
+  let id = 0;
+  for (const category of categories) {
+    for (const platform of platforms) {
+      const ownMentioned = Math.random() > 0.35;
+      const rank = ownMentioned ? Math.ceil(Math.random() * 4) : null;
+      const sentiment = ownMentioned ? sentiments[Math.floor(Math.random() * sentiments.length)] : "unknown";
+      results.push({
+        id: makeId(),
+        promptId: `demo-${++id}`,
+        prompt: `Who are the best ${category.toLowerCase()} options near ${location}?`,
+        category,
+        platform,
+        platformLabel: platformLabels[platform],
+        model: PROVIDERS[platform].model,
+        requestedAt: new Date().toISOString(),
+        location,
+        businessName: name,
+        website,
+        answer: ownMentioned
+          ? `${name} is a well-regarded option in the ${location} area, known for reliability and quality service. They rank among the top choices for ${category.toLowerCase()}.`
+          : `There are several strong options in ${location} for ${category.toLowerCase()}, including ${competitorNames.slice(0, 2).join(" and ")}.`,
+        citations: ownMentioned ? [`${website}/about`, `${website}/services`] : [],
+        sources: ownMentioned
+          ? [{ host: hostname, url: `${website}/about` }]
+          : [{ host: "yelp.com", url: "https://yelp.com" }, { host: "google.com", url: "https://google.com" }],
+        businesses: ownMentioned
+          ? [name, ...competitorNames.slice(0, 2)]
+          : competitorNames.slice(0, 3),
+        ownMentioned,
+        rank,
+        sentiment,
+        context: ownMentioned ? `${name} was mentioned directly in response to a ${category.toLowerCase()} query.` : "Business not mentioned.",
+        error: null,
+      });
+    }
+  }
+
+  const mentionRate = Math.round(percent(results.filter((r) => r.ownMentioned).length, results.length));
+  const avgRank = 2.4;
+  const visibilityScore = 62;
+
+  const platformScores = platforms.map((platform) => {
+    const items = results.filter((r) => r.platform === platform);
+    const mentions = items.filter((r) => r.ownMentioned);
+    return {
+      label: platformLabels[platform],
+      attempts: items.length,
+      mentionRate: percent(mentions.length, items.length),
+      avgRank: 2.5,
+      positiveRate: 70,
+      visibilityScore: 58 + Math.floor(Math.random() * 12),
+    };
+  });
+
+  const categoryScores = categories.map((category) => {
+    const items = results.filter((r) => r.category === category);
+    const mentions = items.filter((r) => r.ownMentioned);
+    return {
+      label: category,
+      attempts: items.length,
+      mentionRate: percent(mentions.length, items.length),
+      avgRank: mentions.length ? 2 + Math.random() : null,
+      positiveRate: mentions.length ? 65 + Math.floor(Math.random() * 20) : 0,
+      visibilityScore: mentions.length ? 55 + Math.floor(Math.random() * 20) : 0,
+    };
+  });
+
+  return {
+    id: makeId(),
+    createdAt: new Date().toISOString(),
+    website,
+    hostname,
+    businessName: name,
+    location,
+    requestedPlatforms: selectedPlatforms,
+    configuredPlatforms: [],
+    missingPlatforms: selectedPlatforms,
+    isDemo: true,
+    site: { pages: [], vertical: "business", searchAreas: [location] },
+    promptStrategy: "demo",
+    prompts: categories.map((category, i) => ({ id: `demo-${i}`, text: `Who are the best ${category.toLowerCase()} options near ${location}?`, category })),
+    results,
+    metrics: {
+      completedAnswers: results.length,
+      ownMentionCount: results.filter((r) => r.ownMentioned).length,
+      totalAttempts: results.length,
+      promptCount: categories.length,
+      mentionRate,
+      firstChoiceRate: 28,
+      avgRank,
+      visibilityScore,
+      positiveRate: 68,
+      sentimentCounts: { positive: 7, neutral: 5, negative: 1 },
+      sourceQuality: 42,
+      coverage: 80,
+      trend: {
+        previousScanId: null,
+        summary: `This is a demo scan for ${name}. Add your API keys to run a real scan.`,
+        visibilityScoreDelta: null,
+        mentionRateDelta: null,
+        avgRankDelta: null,
+        sourceQualityDelta: null,
+        categoryDeltas: [],
+      },
+      riskFlags: [],
+      platformScores,
+      categoryScores,
+      competitors: competitorNames.slice(0, 3).map((cname, i) => ({
+        name: cname,
+        mentions: 8 - i * 2,
+        mentionRate: 53 - i * 12,
+        avgRank: 1.5 + i * 0.7,
+        topSource: ["yelp.com", "google.com", "tripadvisor.com"][i],
+        why: "Appears frequently in AI answers for similar queries.",
+      })),
+      sources: {
+        topSources: [
+          { host: hostname, count: 6, examples: [`${website}/about`] },
+          { host: "yelp.com", count: 4, examples: ["https://yelp.com"] },
+          { host: "google.com", count: 3, examples: ["https://google.com"] },
+        ],
+        citedPages: [{ url: `${website}/about`, title: "About", count: 4 }, { url: `${website}/services`, title: "Services", count: 2 }],
+        ownCitationCount: 6,
+        totalCitationCount: 13,
+      },
+      actions: [
+        { priority: "high", title: "Add your API keys to run a real scan", description: `Set OPENAI_API_KEY, GEMINI_API_KEY, or OPENROUTER_API_KEY in your .env file to get actual AI visibility data for ${name}.` },
+        { priority: "medium", title: "Ensure your homepage is crawlable", description: "AI models pull from public web content. Make sure your key pages are indexed and accessible." },
+      ],
+    },
+  };
 }
 
 function isProviderConfigured(platform) {

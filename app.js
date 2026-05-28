@@ -84,6 +84,7 @@ const els = {
   evidenceRows: document.querySelector("#evidenceRows"),
   limitList: document.querySelector("#limitList"),
   emptyState: document.querySelector("#emptyState"),
+  demoBanner: document.querySelector("#demoBanner"),
   answerDialog: document.querySelector("#answerDialog"),
   dialogContent: document.querySelector("#dialogContent"),
   clearResultsButton: document.querySelector("#clearResultsButton"),
@@ -496,6 +497,7 @@ function renderOverview() {
   els.emptyState.classList.toggle("hidden", hasScan);
   if (els.setupCard) els.setupCard.classList.add("hidden");
   els.scoreHero.hidden = !hasScan || !hasCompletedAnswers;
+  if (els.demoBanner) els.demoBanner.classList.toggle("hidden", !scan?.isDemo);
   renderSetupVisibility();
   setDeveloperButtonsVisible(Boolean(getGroundedActions(scan).length));
 
